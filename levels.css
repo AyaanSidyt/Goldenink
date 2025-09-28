@@ -1,0 +1,1086 @@
+ 
+
+ 
+  .loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid;
+    border-color: #000 #0000;
+    animation: l1 1s infinite linear;
+  }
+
+  @keyframes l1 {
+    to {
+      transform: rotate(.5turn)
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    /* position-based offset from header */
+    position: relative;
+    top: 655px;
+    padding: 19px;
+ 
+    
+    /* Added gap for consistent spacing between buttons */
+  }
+
+  header {
+    margin-left: 12px !important;
+    margin-right: 32px !important;
+  }
+
+  .btn-container button {
+    width: 123px;
+    /* Increased size from 20px for better visibility */
+    height: 123px;
+    /* Increased size from 20px */
+    position: relative;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 24px;
+    border-radius: 8px;
+    border: 2px solid #2d3748;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-container button img {
+    width: 28px;
+    /* Adjusted image size */
+    height: 28px;
+    /* Adjusted image size */
+    object-fit: contain;
+    /* Ensure images fit without stretching */
+  }
+
+  /* active state for tool buttons */
+  .btn-container button.active {
+   
+    color: #2d3748;
+    border-color: #AC841E;
+    transform: scale(1.2);
+  }
+
+  .btn-container button:active {
+    transform: scale(1.1);
+  }
+
+  .gamecont {
+    display: flex;
+    gap: 50px;
+    position: relative;
+    /* Ensure it's a positioning context for absolute children */
+    flex: 1;
+    /* Allow it to take available space */
+  }
+
+  .rub {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    z-index: 1000;
+  }
+
+  .rub:active {
+    cursor: grabbing;
+  }
+
+  .rub.dragging {
+    z-index: 1000;
+  }
+
+  .rub.completed {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  /* New glow classes and their animations */
+  .rub .rub-glow {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.8), 0 0 48px rgba(255, 255, 255, 0.6);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    animation: whiteRipple 2s infinite;
+  }
+
+  @keyframes whiteRipple {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+    }
+
+    50% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0.4;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+    }
+  }
+
+  /* Chuck tool glow - white */
+  .chuck .chuck-glow {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Crayon tool glow - black */
+  .crayon .crayon-glow {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    right: -20px;
+    /* Positioned to be at the tip */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Stone glow variations */
+  .stone-glow-white {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 1);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 1;
+  }
+
+  /* Ripple effect for stone center glow */
+  .stone-glow-white.ripple {
+    background: rgba(255, 255, 255, 0.18);
+    width: 60px;
+    height: 60px;
+  }
+
+  .stone-glow-white.ripple::before,
+  .stone-glow-white.ripple::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
+    opacity: 0.9;
+  }
+
+  .stone-glow-white.ripple::before {
+    animation: stoneRipple1 2200ms infinite ease-out;
+  }
+
+  .stone-glow-white.ripple::after {
+    animation: stoneRipple2 2200ms infinite ease-out;
+    animation-delay: 900ms;
+  }
+
+  @keyframes stoneRipple1 {
+    0% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0.9;
+    }
+
+    70% {
+      transform: translate(-50%, -50%) scale(2.2);
+      opacity: 0.12;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(2.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes stoneRipple2 {
+    0% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0.9;
+    }
+
+    70% {
+      transform: translate(-50%, -50%) scale(2.0);
+      opacity: 0.12;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  .stone-glow-black-center {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+   border: 1px solid #0000004f;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.103);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 1;
+  }
+
+  /* dark ripple for stone black center */
+  .stone-glow-black-center.ripple::before,
+  .stone-glow-black-center.ripple::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+    opacity: 0.9;
+    /* Using stoneRipple animations as they are visually similar */
+    animation: stoneRipple1 2000ms infinite ease-out;
+  }
+
+  .stone-glow-black-center.ripple::after {
+    animation: stoneRipple2 2000ms infinite ease-out;
+    animation-delay: 900ms;
+  }
+
+  .stone-glow-black-right {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #000;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    left: 70%;
+    /* positioned to the right of the stone */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 1;
+  }
+
+  /* Added ripple for stone-glow-black-right */
+  .stone-glow-black-right.ripple::before,
+  .stone-glow-black-right.ripple::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+    opacity: 0.9;
+    animation: ripple1 1800ms infinite ease-out;
+    /* Using generic ripple for now */
+  }
+
+  .stone-glow-black-right.ripple::after {
+    animation-delay: 700ms;
+  }
+
+  /* Generic ripple for any element given the 'ripple' class */
+  .ripple::before,
+  .ripple::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    box-shadow: 0 0 20px rgba(0, 51, 255, 0.6);
+    /* Blue ripple for generic fallback */
+    opacity: 0.9;
+  }
+
+  .ripple::before {
+    animation: ripple1 2000ms infinite ease-out;
+  }
+
+  .ripple::after {
+    animation: ripple2 2000ms infinite ease-out;
+    animation-delay: 800ms;
+  }
+
+  @keyframes ripple1 {
+    0% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0.9;
+    }
+
+    70% {
+      transform: translate(-50%, -50%) scale(2.6);
+      opacity: 0.12;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(3.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ripple2 {
+    0% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0.9;
+    }
+
+    70% {
+      transform: translate(-50%, -50%) scale(2.4);
+      opacity: 0.12;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(3.0);
+      opacity: 0;
+    }
+  }
+
+  /* Mini ripple used for gumarabic bottom and stone little bottom */
+  .mini-ripple {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .mini-ripple .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.0);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    opacity: 0.9;
+    animation: miniRipple 1200ms ease-out forwards;
+  }
+
+  @keyframes miniRipple {
+    0% {
+      transform: scale(0.4);
+      opacity: 0.9;
+    }
+
+    60% {
+      transform: scale(1.6);
+      opacity: 0.14;
+    }
+
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  /* hide glow while dragging */
+  .rub.dragging .rub-glow,
+  .chuck.dragging .chuck-glow,
+  .crayon.dragging .crayon-glow {
+    display: none;
+  }
+
+  /* chuck tool styling and pointer behavior */
+  .chuck,
+  .crayon,
+  #gumarabicWrapper {
+    touch-action: none;
+    -ms-touch-action: none;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ #gumarabicWrapper img{
+  width: 800px !important;
+ }
+  .chuck:active,
+  .crayon:active,
+  #gumarabicWrapper:active {
+    cursor: grabbing;
+  }
+
+  /* Bottom sticky segmented progress bar (centered) */
+  #bottomProgressWrap {
+    position: fixed;
+    bottom: 26px; /* moved up slightly (higher) */
+    left: 48%;
+    transform: translateX(-52%); /* nudge a bit left */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 3000;
+    pointer-events: none;
+    /* non-interactive */
+  }
+
+  #progressBarBottom {
+    display: flex;
+    gap: 4px;
+    /* slight separation between pieces */
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 80vw;
+  }
+
+  .progress-segment {
+    width: 64px;
+    height: 6px; /* slightly lower height */
+    /* pill shape */
+    border-radius: 999px;
+    background: transparent;
+    /* gold outline */
+    border: 2px solid #D4AF37;
+    /* subtle inset highlight to match reference */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    transition: background 360ms ease, transform 200ms ease, border-color 200ms ease;
+  }
+
+  .progress-segment.active {
+    background: #D4AF37;
+    border-color: #D4AF37;
+    /* filled gold segment */
+  }
+
+  /* round only the outer corners to keep a continuous strip */
+  /* ensure each segment is fully pill-rounded (corners) */
+  .progress-segment:first-child,
+  .progress-segment:last-child {
+    border-radius: 999px;
+  }
+
+  /* half-fill visual: use a gradient to show half the segment as filled */
+  .progress-segment.half {
+    background: linear-gradient(90deg, #D4AF37 50%, transparent 50%);
+  }
+
+  /* Tool preview: arrange tool wrappers in a row with a preview PNG shown to the right */
+  #rubWrapper,
+  #chuckWrapper,
+  #crayonWrapper,
+  #gumarabicWrapper,
+  #nitricWrapper {
+    display: flex;
+    align-items: center;
+    gap: 80px; /* requested gap between tool and preview */
+    pointer-events: auto; /* allow hover interactions */
+  }
+
+  .tool-preview {
+    display: block;
+    width: 180px;
+    height: auto;
+    max-width: 40vw;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 160ms ease, transform 160ms ease;
+    pointer-events: none;
+  }
+
+  /* Global preview container (previews live outside wrappers and are absolutely positioned) */
+  #toolPreviewContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    z-index: 4000;
+  }
+
+  .tool-preview.global {
+    position: absolute;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.98);
+    transition: opacity 180ms ease, transform 180ms ease;
+    pointer-events: none;
+    width: 220px;
+    height: auto;
+    left: auto;
+    top: auto;
+  }
+
+  /* Allow overriding preview placement from CSS using variables:
+     --preview-left, --preview-right, --preview-top, --preview-bottom
+     If you set any of these per-image (by id or class) the JS will not reposition that preview. */
+  .tool-preview.global {
+    /* default: position right of target using JS-calculated left/top unless overridden */
+    left: var(--preview-left, auto);
+    right: var(--preview-right, auto);
+    top: var(--preview-top, auto);
+    bottom: var(--preview-bottom, auto);
+  }
+
+  .tool-preview.global.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  /* Ensure gum overlay on the stone stays small across resolutions */
+  #gumStoneImg {
+    width: 200px !important;
+    height: 200px !important;
+    max-width: 200px !important;
+    top: 755px !important;
+  }
+  /* helper: per-image CSS placement for previews (overrides JS positioning) */
+
+  /* Show preview on hover or when JS adds a helper class 'show-preview' */
+  #rubWrapper:hover .tool-preview,
+  #rubWrapper.show-preview .tool-preview,
+  #chuckWrapper:hover .tool-preview,
+  #chuckWrapper.show-preview .tool-preview,
+  #crayonWrapper:hover .tool-preview,
+  #crayonWrapper.show-preview .tool-preview,
+  #gumarabicWrapper:hover .tool-preview,
+  #gumarabicWrapper.show-preview .tool-preview,
+  #nitricWrapper:hover .tool-preview,
+  #nitricWrapper.show-preview .tool-preview {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* hide the bottom text as requested */
+  #bottomStageText {
+    display: none;
+    font-size: 12px;
+    color: #111;
+    pointer-events: none;
+  }
+
+  /* 4K Resolution Media Query */
+  @media (min-width: 2560px) {
+    .header {
+      
+      margin-top: 118px;
+      
+    }
+    
+    .main-title {
+      font-size: 200px;
+    }
+    
+    .subtitle {
+      font-size: 72px;
+    }
+    
+    .main-title-arabic {
+      font-size: 220px;
+    }
+    
+    .subtitle-arabic {
+      font-size: 90px;
+    }
+    
+    img[src$="/assets/homeic.png"],
+    img[src$="assets/homeic.png"],
+    img[src$="./assets/homeic.png"] {
+      width: 100px !important;
+      height: 100px !important;
+      left: 40px !important;
+      bottom: 40px !important;
+    }
+    
+    .tool-sidebar {
+      left: 40px;
+      gap: 40px;
+    }
+    
+    .tool-icon {
+      width: 120px;
+      height: 120px;
+    }
+    
+    .tool-icon img {
+      width: 80px;
+      height: 80px;
+    }
+    
+    #stoneWrapper img {
+      width: 1200px !important;
+      box-shadow: none;
+    }
+    
+    #sideInstructionP {
+      font-size: 36px !important;
+    }
+
+    .home-icon {
+      width: 100px;
+      height: 100px;
+      border: 8px solid #2d3748;
+    }
+
+    .home-icon img {
+      width:100px;
+      height:100px;
+    }
+
+    .header-right {
+      gap: 129px;
+    }
+
+    .language-toggle {
+      border-radius: 80px;
+      padding: 16px;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      padding: 24px 56px;
+      font-size: 52px;
+      border-radius: 64px;
+      min-width: 100px;
+    }
+
+    .back-btn {
+      width: 100px;
+      height:100px;
+      border: 8px solid #2d3748;
+    }
+
+    .back-btn img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .loader {
+      width: 200px;
+      border: 32px solid;
+    }
+
+    .btn-container {
+      padding-left: 59px;
+      /* position-based offset from header (4K) */
+      position: relative;
+      top: 655.7277px;
+      /* Scaled gap */
+    }
+
+    .btn-container button {
+      width: 123.85px;
+      /* Scaled button size */
+      height: 123px;
+      padding: 20px;
+      font-size: 96px;
+      border-radius: 25px;
+      border: 8px solid #AC841E;
+    }
+
+    .btn-container button img {
+      width: 73.84px;
+      /* Scaled image size */
+      height: 73.84px;
+    }
+
+    h1 {
+      font-size: 70px;
+    }
+
+    div[style*="line-height: 20px"] {
+      /* Targeting the header title wrapper */
+      line-height: 60px !important;
+    }
+
+    p[style*="font-size: 24px"] {
+      /* Targeting the header subtitle */
+      font-size: 56px !important;
+    }
+
+    p[style*="font-size: 14px"] {
+      /* Targeting the instructions text */
+      font-size: 56px !important;
+    }
+
+    .gamecont {
+      gap: 160px;
+    }
+
+    /* Stone wrapper (div with Stonecopy.png) */
+    div[style*="left: 300px; top: -80px"],
+    #stoneWrapper {
+      left: 1384px !important;
+      right: 1765px !important; /* fixed gap from left */
+      top: 800px !important; /* fixed gap from top */
+    
+      width: 2100px !important; /* slightly larger for 4K */
+      height: 820px !important;
+    }
+
+    div[style*="left: 300px; top: -80px"],
+    #stoneWrapper {
+      left: 1384px !important;
+      right: 1765px !important; /* fixed gap from left for clearer view */
+  top: 800px !important; /* fixed gap from top for clearer view */
+      transform: translate(-50%, -20%) !important;
+      width: 1400px !important; /* larger for 4K */
+      height: 1000px !important;
+    }
+
+    
+    /* Stone main image only */
+    #stoneWrapper img[src*="Stonecopy.png"] {
+      width: 1138px !important;
+      max-width: 1232px !important;
+      box-shadow:
+        -80px -40px 120px -40px rgba(0,0,0,0.45), /* top left shadow */
+        0 80px 120px -40px rgba(0,0,0,0.45);      /* bottom shadow */
+    }
+
+    /* Black dust overlay inside the stone should stay small */
+    #stoneWrapper img[src*="black.png"] {
+      width: 1100px !important;
+      max-width: 1100px !important;
+      height: auto !important;
+    }
+    /* Black.png overlay (original container, image is moved by JS) */
+       #dustWrapper img {
+      /* target the img moved into stoneWrapper */
+      width: 300px !important;
+      max-width: 300px !important;
+      height: auto !important;
+      /* maintain aspect ratio */
+    }
+
+    /* Rub tool wrapper - stacked position */
+    div[style*="right: 0px; bottom: -380px"],
+    #rubWrapper {
+      right:1093px !important;
+      top: 983px !important; /* stack vertically with tools */
+      width: 420px !important;
+      height: 420px !important;
+    }
+
+    div[style*="right: 0px; bottom: -380px"] img,
+    #rubWrapper img {
+      width: 600px !important;
+      max-width: 600px !important;
+    }
+
+    /* Chuck tool wrapper - stacked position */
+    #chuckWrapper {
+      right: 1014px !important;
+      bottom: -110% !important;
+      width: 420px !important;
+      height: 420px !important;
+    }
+
+    #chuckImg {
+      width: 600px !important;
+      max-width: 600px !important;
+    }
+
+    /* Crayon tool wrapper (dynamically created) - stacked position */
+    #crayonWrapper {
+      right: 1014px !important;
+      top: 859px !important;
+      width: 600px !important;
+      height: 600px !important;
+    }
+
+    #crayonImg {
+      width: 521.82px !important;
+      max-width: 740.45px !important;
+    }
+
+    /* Gumarabic tool wrapper (dynamically created) - stacked position */
+    #gumarabicWrapper {
+      right: 1112px !important;
+      bottom: 30% !important;
+      width: 320px !important;
+      height: auto !important;
+    }
+
+    #gumarabicImg {
+      width: 1107.76px !important;
+      max-width: 1000px !important;
+      height: auto !important;
+    }
+
+    /* GIF Overlay (dynamically created) */
+    #gifOverlay {
+      width: 80% !important;
+      /* Take up 80% of stoneWrapper */
+      height: 80% !important;
+    }
+
+    /* Instructions text */
+    div[style*="right: 110px; bottom: -110px"] {
+      right: 200px !important;
+      bottom: 100px !important;
+      width: 500px !important;
+      text-align: center !important;
+    }
+
+    div[style*="right: 110px; bottom: -110px"] p {
+      font-size: 36px !important;
+      line-height: 1.3 !important;
+    }
+
+    /* Progress bar scaling */
+    #bottomProgressWrap {
+      bottom: 148px; /* moved up slightly for 4K */
+      left: 48%;
+      transform: translateX(-52%);
+    }
+
+    .progress-segment {
+      width: 198.86px;
+      height: 16.85px; /* slightly lower than before */
+      /* pill-shaped large segments */
+      border-radius: 999px;
+      background: transparent;
+      border: 6px solid #D4AF37;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.5);
+    }
+
+    .progress-segment:first-child,
+    .progress-segment:last-child {
+      border-radius: 999px;
+    }
+
+    #bottomStageText {
+      display: none;
+      font-size: 48px;
+    }
+
+    /* GLOWS (scaling factors applied) */
+
+    .rub .rub-glow {
+      width: 75px !important;
+      /* was 30px */
+      height: 75px !important;
+      box-shadow: 0 0 60px rgba(255, 255, 255, 0.8), 0 0 120px rgba(255, 255, 255, 0.6) !important;
+      /* scaled shadows */
+    }
+
+    .rub .rub-glow.ripple {
+      width: 90px !important;
+      /* was 36px */
+      height: 90px !important;
+    }
+
+    /* 4K override: make rub preview sit further left (increase right value) */
+    #rubPreviewImg {
+      --preview-right: 680px; /* larger value for 4K screens */
+      --preview-top: 48%;
+    }
+
+    /* Nudge chuck preview slightly to the right using left override so it appears visible */
+ 
+
+    .rub .rub-glow.ripple::before,
+    .rub .rub-glow.ripple::after {
+      width: 90px !important;
+      height: 90px !important;
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.6) !important;
+      /* scaled shadows */
+    }
+
+    .chuck .chuck-glow {
+      width: 100px !important;
+      /* was 40px */
+      height: 100px !important;
+      box-shadow: 0 0 75px rgba(255, 255, 255, 0.9) !important;
+      /* scaled shadows */
+    }
+
+    /* Chuck glow ripple also uses generic, scale its box-shadow */
+    .chuck .chuck-glow.ripple::before,
+    .chuck .chuck-glow.ripple::after {
+      box-shadow: 0 0 75px rgba(255, 255, 255, 0.9) !important;
+    }
+
+
+    .crayon .crayon-glow {
+      width: 75px !important;
+      /* was 30px */
+      height: 75px !important;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8) !important;
+      /* scaled shadows */
+      right: -50px !important;
+      /* Adjusted position for larger size */
+    }
+
+    /* Crayon glow ripple also uses generic, scale its box-shadow */
+    .crayon .crayon-glow.ripple::before,
+    .crayon .crayon-glow.ripple::after {
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .stone-glow-white {
+      width: 125px !important;
+      /* was 50px */
+      height: 125px !important;
+      box-shadow: 0 0 100px rgba(255, 255, 255, 1) !important;
+      /* scaled shadows */
+    }
+
+    .stone-glow-white.ripple {
+      width: 150px !important;
+      /* was 60px */
+      height: 150px !important;
+    }
+
+    .stone-glow-white.ripple::before,
+    .stone-glow-white.ripple::after {
+      width: 150px !important;
+      height: 150px !important;
+      box-shadow: 0 0 100px rgba(255, 255, 255, 0.9) !important;
+      /* scaled shadows */
+    }
+
+    .stone-glow-black-center {
+      width: 150px !important;
+      /* was 60px */
+      height: 150px !important;
+      box-shadow: 0 0 125px rgba(0, 0, 0, 0.9) !important;
+      /* scaled shadows */
+    }
+
+    .stone-glow-black-center.ripple::before,
+    .stone-glow-black-center.ripple::after {
+      width: 200px !important;
+      /* was 80px */
+      height: 200px !important;
+      box-shadow: 0 0 75px rgba(0, 0, 0, 0.9) !important;
+      /* scaled shadows */
+    }
+
+    .stone-glow-black-right {
+      width: 100px !important;
+      /* was 40px */
+      height: 100px !important;
+      box-shadow: 0 0 75px rgba(0, 0, 0, 0.8) !important;
+      /* scaled shadows */
+    }
+
+    .stone-glow-black-right.ripple::before,
+    .stone-glow-black-right.ripple::after {
+      width: 150px !important;
+      /* scaled from 60px */
+      height: 150px !important;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.137) !important;
+      /* scaled shadows */
+    }
+
+    .mini-ripple {
+      width: 70px !important;
+      /* was 28px */
+      height: 70px !important;
+    }
+
+    .mini-ripple .ring {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6) !important;
+      /* scaled shadows */
+    }
+    #nitricWrapper{
+      right: 1134px !important;
+      top: 20% !important;
+      width: 320px !important;
+      height: auto !important;
+    }
+
+      /* 4K override for rub preview placement */
+   #rubPreviewImg {
+    /* move the rub preview a bit left (larger right value pushes it left into view).
+       Set to a sensible default and provide a 4K override below. */
+     --preview-right: 270px; /* try 360px initially; increase to push further left */
+     --preview-top: 1131px;     /* vertical position (viewport percent or px) */
+  }
+      /* 4K override for rub preview placement */
+  #chuckPreviewImg{
+    
+     --preview-right: 140px; /* try 360px initially; increase to push further left */
+     --preview-top: 1121px;     /* vertical position (viewport percent or px) */
+  }
+  #crayonPreviewImg{
+    
+     --preview-right: 260px; /* try 360px initially; increase to push further left */
+     --preview-top: 1121px;     /* vertical position (viewport percent or px) */
+  }
+  #gumPreviewImg{
+   --preview-right: 160px; /* increase to push gum preview left into view */
+   --preview-top: 50%; /* vertical position (viewport percent) */
+  }
+#gumStoneImg{
+  width: 30px !important;
+
+}
+#nitricPreviewImg{
+   --preview-right: 160px; /* increase to push gum preview left into view */
+   --preview-top: 50%; /* vertical position (viewport percent) */
+  }
+  /* Ensure nitric overlay on the stone stays reasonably small across resolutions */
+  #nitricStoneImg {
+    width: 150px !important;
+    height: 150px !important;
+    max-width: 150px !important;
+    top: 755px !important;
+   left: -100px;
+  }
+}

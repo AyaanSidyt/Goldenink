@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./levels.css">
+  <link rel="stylesheet" href="./style.css">
+  <title>Prepare the Stone</title>
+</head>
+<style>
+
+</style>
+
+<body>
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="loader"></div>
+  </div>
+  <header class="header">
+    <div class="header-left">
+      <h1 class="main-title">Draw in reverse on the stone</h1>
+      <p class="subtitle">USE LITHO CRAYONS OR INK</p>
+    </div>
+    <div class="header-right">
+      <h1 class="main-title-arabic">اكتب بعكس الاتجاه على الحجر</h1>
+      <p class="subtitle-arabic">أقلام الطباعة الحجرية</p>
+    </div>
+  </header>
+  <div class="gamecont"> <!-- No inline style, let CSS define position -->
+
+    <div class="btn-container">
+      <button><img src="./assets/ruberic.png" alt="rub"></button>
+      <button><img src="./assets/chuckiic.png" alt="chuck"></button>
+      <button><img src="./assets/crayonic.png" alt="crayon"></button>
+      <button><img src="./assets/bottleic.png" alt="gum" id="btnGumImg"></button>
+      <button><img src="./assets/bottleic.png" alt="nitric" id="btnNitricImg"></button>
+    </div>
+    <div id="stoneWrapper"
+      style="flex: 1; display: flex; align-items: center; justify-content: center; position: absolute; left: 949px; top: 561px;">
+      <img src="./assets/Stonecopy.png" alt="" style="width: 2100px;">
+    </div>
+    <!-- dustwhite.png (initial fine dust). Image will be moved to stoneWrapper by JS. -->
+    <div
+      style="flex: 1; display: flex; align-items: center; justify-content: center; position: absolute; left: 600px; top: -200px; opacity: 0;">
+      <img src="./assets/dustwhite.png" alt="" style="width: 600px;">
+    </div>
+    <!-- black.png (coarse dust, used with rub). Image will be moved to stoneWrapper by JS. -->
+    <div id="dustWrapper"
+      style="flex: 1; display: flex; align-items: center; justify-content: center; position: absolute; left: 400px; top:px; opacity: 0;">
+  <img src="./assets/black.png" alt="" style="width: 400px;">
+    </div>
+
+    <div id="rubWrapper" class="rub"
+      style="flex: 1; display: flex; align-items: center; justify-content: center; position: absolute; right: 0px; bottom: -380px;">
+      <img id="rubImg" src="./assets/rub.png" alt="" style="width: 300px;">
+      <div id="rubGlow" class="glow-circle"></div> <!-- rubGlow moved inside rubWrapper directly -->
+    </div>
+
+    <!-- chuck tool: draggable and rotary. Starts hidden. -->
+    <div id="chuckWrapper" class="chuck"
+      style="flex: 1; display: flex; align-items: center; justify-content: center; position: absolute; right: -520px; bottom: -340px; opacity: 0;">
+      <img id="chuckImg" src="./assets/chucky.png" alt="chuck" style="width: 220px; position: relative; z-index:2;">
+    </div>
+
+    <!-- global preview container: previews shown outside wrappers so they don't drag -->
+    <div id="toolPreviewContainer" aria-hidden="true">
+  <img id="rubPreviewImg" class="tool-preview global" src="./assets/rub_preview.png" alt="rub preview" style="width: 525.4px; height: 274.16px;" />
+      <img id="chuckPreviewImg" class="tool-preview global" src="./assets/chuckPreviewImg.png" alt="chuck preview" style="width: 525.4px; height: 274.16px;"/>
+      <img id="crayonPreviewImg" class="tool-preview global" src="./assets/crayonpre.png  " alt="crayon preview"style="width:525.4px; height: 274.66px;" />
+      <img id="gumPreviewImg" class="tool-preview global" src="./assets/gumpre.png" alt="gum preview"style="width: 525.4px; height: 274.16px;" />
+      <img id="nitricPreviewImg" class="tool-preview global" src="./assets/nitricpre.png" alt="nitric preview" style="width: 525.4px; height: 274.16px;"/>
+    </div>
+
+    <div id="sideInstruction"
+      style="flex: 1; display: flex; align-items: center; justify-content: center; position: absolute; right:8%; bottom: -15%;">
+    </div>
+  </div>
+
+  <!-- progress bar markup inserted by script edits -->
+   <div class="zone-interactive">
+    <div class="group-wrapper">
+<div class="group">
+  <div class="layer">
+    <div class="overlap-group">
+  <img class="clip-path-group" src="./assets/clipdesign.png" style="width:1251.39px; height:764.05px;" />
+      </div>
+    </div>
+  </div>
+</div>
+      <div id="bottomProgressWrap" aria-hidden="true">
+        <div id="progressBarBottom">
+          <div class="progress-segment" data-index="1"></div>
+          <div class="progress-segment" data-index="2"></div>
+          <div class="progress-segment" data-index="3"></div>
+          <div class="progress-segment" data-index="4"></div>
+          <div class="progress-segment" data-index="5"></div>
+          <div class="progress-segment" data-index="6"></div>
+        </div>
+        <div id="bottomStageText">Prepare the stone</div>
+        
+      </div>
+      <!-- end progress bar -->
+      
+    </div>
+    </div>
+  </div>
+   <img id="homeIcon" src="./assets/homeic.png" alt="home">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+<script src="./levels.js"></script>
+</body>
+
+</html>
